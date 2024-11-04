@@ -1,24 +1,33 @@
-#include <math.h>
 #include <stdlib.h>
 #include "int2str.h"
+
 char* int2str(int num) {
-    if (num == -2147483648) {
-        return "-2147483648";
-    }
     int sign = num < 0 ? -1 : 0;
-    num = abs(num);
-    int size = num == 0 ? 1 : (int)log10(num) + 1; 
-    size += sign == -1 ? 1 : 0;  
-    char* str = (char*)malloc(sizeof(char) * size + 13);
+    unsigned int number = num < 0 ? num * -1 : num;
+    int size = 1;
+  unsigned int temp = number;
+  while (temp /= 10)
+  {
+    size++; 
+  }
+  if (sign == -1) size += 1;
+  else size += 0;
+  
+    char* str = (char*)malloc(sizeof(char)* 12);
     int i = 0;
-    do {
-        str[size - 1 - i++] = num % 10 + '0';
-        num /= 10;
-    } while (num > 0);
+    
+    str[size - 1 - i++] = number % 10 + '0';
+    number /= 10;
+    while (number > 0) {
+        str[size - 1 - i++] = number % 10 + '0';
+        number /= 10;
+    }
     if (sign == -1) {
         str[0] = '-';
     }
     str[size] = '\0';
     
-    return str;
+    return str; 
 }
+
+
