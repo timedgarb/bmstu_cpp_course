@@ -2,7 +2,9 @@
 #include "int2str.h"
 
 char* int2str(int num) {
-    int sign = num < 0 ? -1 : 0;
+    int sign;
+  if (num < 0) sign = -1;
+  else sign = 0;
     unsigned int number = num < 0 ? num * -1 : num;
     int size = 1;
   unsigned int temp = number;
